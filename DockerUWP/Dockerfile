@@ -22,7 +22,7 @@ RUN dotnet publish "./DockerUWP.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 WORKDIR /app/publish
 
 # Expose ports
-EXPOSE 80
+EXPOSE 8082
 
 
 # Set entry point
