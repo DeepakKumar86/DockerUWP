@@ -35,7 +35,7 @@ namespace DockerUWP.Controllers
                     while (reader.Read())
                     {
                         Console.WriteLine($"{reader[0]}, {reader[1]}"); // Adjust indexes or column names as needed
-                        string str = reader[2].ToString(); 
+                        string str = reader[2].ToString();
                         ViewBag.str = str;
                     }
 

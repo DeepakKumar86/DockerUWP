@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: DockerUWP/Dockerfile
-    container_name: dockeruwp-app
+    container_name: dockeruwp
     depends_on:
       - db
     environment:
