@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using DockerUWP.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Data.SqlClient;
 
 namespace DockerUWP.Controllers
 {
@@ -15,8 +17,39 @@ namespace DockerUWP.Controllers
 
         public IActionResult Index()
         {
+            //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=ProductDb;Trusted_Connection=True;";
+            string connectionString = "Server=db;Database=UWP;User Id=sa;Password=Aa1#92191153671;TrustServerCertificate=True";
+            // Define the SQL query
+            string query = "select top 1  * from ProductTable";
+
+            // Create a connection and command
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    // Read and display the data
+                    while (reader.Read())
+                    {
+                        Console.WriteLine($"{reader[0]}, {reader[1]}"); // Adjust indexes or column names as needed
+                        string str = reader[2].ToString(); 
+                        ViewBag.str = str;
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
             return View();
         }
+
+
 
         public IActionResult Privacy()
         {

@@ -21,7 +21,8 @@ RUN dotnet publish "./DockerUWP.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 # Set the working directory to published output
 WORKDIR /app/publish
 
-# Expose ports
+#Just tells Docker (and documentation) which port the container expects traffic on.
+#Does not automatically publish it to the host; you still need -p host:container when running.
 EXPOSE 8082
 
 

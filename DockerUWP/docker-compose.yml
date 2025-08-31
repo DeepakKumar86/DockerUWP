@@ -1,0 +1,31 @@
+﻿version: "3.9"
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: dockeruwp-db
+    environment:
+      SA_PASSWORD: "Aa1#92191153671"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - appnetwork
+
+  webapi:
+    build:
+      context: .
+      dockerfile: DockerUWP/Dockerfile
+    container_name: dockeruwp-app
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=db;Database=UWP;User Id=sa;Password=Aa1#92191153671;TrustServerCertificate=True"
+    ports:
+      - "8082:8082"
+    networks:
+      - appnetwork
+
+networks:
+  appnetwork:
+
